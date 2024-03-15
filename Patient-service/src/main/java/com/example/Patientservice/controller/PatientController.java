@@ -1,6 +1,7 @@
 package com.example.Patientservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,11 +9,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+import java.util.Optional;
 
 import com.example.Patientservice.dto.PatientDto;
 import com.example.Patientservice.service.PatientService;
 
 @RestController
+@RequestMapping("/api")
 public class PatientController {
 
     @Autowired
@@ -24,8 +30,10 @@ public class PatientController {
     }
 
     @GetMapping("/patients/{id}")
-    public Optional<PatientDto> getPatientById(@PathVariable String id) {
-        return patientService.getPatientById(id);
+    public ResponseEntity<PatientDto> getPatientById(@PathVariable String id) {
+        Optional<PatientDto> patient = patientService.getPatientById(id);
+        return patient.map(ResponseEntity::ok)
+                     .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/patients")
@@ -38,8 +46,8 @@ public class PatientController {
         patientService.updatePatient(id, updatedPatient);
     }
 
-    @DeleteMapping("/patients/{id}")
-    public void deletePatientById(@PathVariable String id) {
-        patientService.deletePatientById(id);
-    }
+    // @DeleteMapping("/patients/{id}")
+    // public void deletePatientById(@PathVariable String id) {
+    //     patientService.deletePatientById(id);
+    // }
 }
