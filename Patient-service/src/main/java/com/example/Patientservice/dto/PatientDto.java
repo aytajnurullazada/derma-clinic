@@ -1,29 +1,25 @@
-package com.example.Patientservice.model;
+package com.example.Patientservice.dto;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Entity
-@Table(name="patientInfo")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class PatientModel {
+public class PatientDto {
     @Id
     private String id;
     private String name;
     private int age;
     private String gender;
     private String address;
-    private String mobile;
-    
-public PatientModel(String id){
-    this.id =id;
+
+public PatientDto(String id){
+    this.id = id;
     }
+
 }
