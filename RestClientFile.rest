@@ -1,43 +1,39 @@
 
-### Get All products
-GET http://localhost:8082/api/products 
-
-
-### Get a product with quantity
-http://localhost:8082/api/productquantity/02
+### Get All Patients
+GET http://localhost:8082/patient/all 
 
 
 ### Get a product by id
-GET http://localhost:8082/api/products/02 
+GET http://localhost:8082/patient/1
 
 
 ### Add a product
-POST  http://localhost:8082/api/products HTTP/1.1
+POST  http://localhost:8082/patient/add HTTP/1.1
 content-type: application/json
 
 {
-    "id": "10",
-    "code": "p-109-20",
-    "name": "new light vehicle",
-    "type": "Light another new",
-    "description": "Can also be used for light work",
-    "price": 1250
+    "id":5,
+    "name": "Alamin khan",
+    "age": 23,
+    "gender": "male",
+    "address": "Raatusee 23",
+    "mobile":12345
 }
 
 ### Update a product
-PUT   http://localhost:8082/api/products/02 HTTP/1.1
+PUT   http://localhost:8082/update/5 HTTP/1.1
 content-type: application/json
 
 {
-    "id": "10",
-    "code": "p-109-20",
-    "name": "new light vehicle",
-    "type": "Light another new",
-    "description": "Can also be used for light work",
-    "price": 150
+    "id":5,
+    "name": "Mohammad Alamin khan",
+    "age": 23,
+    "gender": "male",
+    "address": "Raatusee 23",
+    "mobile":12345
 }
 
 ### Delete a product
-DELETE    http://localhost:8082/api/products/02
+DELETE http://localhost:8082/patient/delete/4
 
 

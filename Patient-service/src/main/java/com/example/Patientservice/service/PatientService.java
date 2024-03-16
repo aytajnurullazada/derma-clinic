@@ -1,15 +1,11 @@
 package com.example.Patientservice.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.example.Patientservice.dto.PatientDto;
 import com.example.Patientservice.model.PatientModel;
 import com.example.Patientservice.repository.PatientRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientService {
@@ -17,48 +13,38 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    public List<PatientDto> getAllPatients() {
-        Iterable<PatientModel> patients = patientRepository.findAll();
-        List<PatientDto> patientDto = new ArrayList<>();
-        for (PatientModel patientModel : patients) {
-            patientDto.add(mapToPatientDto(patientModel));
+    public Optional<PatientModel> findById(Integer id) {
+        return patientRepository.findById(id);
+    }
+
+    public List<PatientModel> getAllPatients() {
+        return (List<PatientModel>) patientRepository.findAll();
+    }
+
+    public PatientModel createPatient(PatientModel patient) {
+        return patientRepository.save(patient);
+    }
+
+    public Optional<PatientModel> updatePatient(Integer id, PatientModel patientDetails) {
+        Optional<PatientModel> patientOptional = patientRepository.findById(id);
+        if (patientOptional.isPresent()) {
+            PatientModel patient = patientOptional.get();
+            patient.setName(patientDetails.getName());
+            patient.setAge(patientDetails.getAge());
+            patient.setGender(patientDetails.getGender());
+            patient.setAddress(patientDetails.getAddress());
+            return Optional.of(patientRepository.save(patient));
+        } else {
+            return Optional.empty();
         }
-        return patientDto;
     }
 
-    public Optional<PatientDto> getPatientById(String id) {
-        Optional<PatientModel> optionalPatient = patientRepository.findById(id);
-        return optionalPatient.map(this::mapToPatientDto);
-    }
-
-    public void addPatient(PatientDto patientDto) {
-        PatientModel patientModel = mapToPatientModel(patientDto);
-        patientRepository.save(patientModel);
-    }
-
-    public void updatePatient(String id, PatientDto updatedPatientDto) {
-        Optional<PatientModel> optionalPatient = patientRepository.findById(id);
-        if (optionalPatient.isPresent()) {
-            PatientModel patient = optionalPatient.get();
-            patient.setName(updatedPatientDto.getName());
-            patient.setAge(updatedPatientDto.getAge());
-            // Set other properties as needed
-            patientRepository.save(patient);
+    public boolean deletePatient(Integer id) {
+        if (patientRepository.existsById(id)) {
+            patientRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
         }
-        // Handle the case when patient with given id is not found
-    }
-
-    // Helper methods for mapping between DTO and model
-    private PatientDto mapToPatientDto(PatientModel patientModel) {
-        return new PatientDto(patientModel.getId());
-        // You may need to map other properties here
-    }
-
-    private PatientModel mapToPatientModel(PatientDto patientDto) {
-        PatientModel patientModel = new PatientModel(patientDto.getId());
-        patientModel.setName(patientDto.getName());
-        patientModel.setAge(patientDto.getAge());
-        // Set other properties as needed
-        return patientModel;
     }
 }

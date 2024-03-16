@@ -12,7 +12,7 @@ public class DatabaseInitializer {
         public static void initialize(String nameOfDatabase) {
         String url = "jdbc:postgresql://localhost:5432/";
         String username = "postgres";
-        String password = "postgres";
+        String password = "1234";
         String databaseName = nameOfDatabase;
 
         DataSource dataSource = new DriverManagerDataSource(url, username, password);
