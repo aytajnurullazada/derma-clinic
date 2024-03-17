@@ -50,12 +50,8 @@ public class AppointmentServices {
         }
     }
 
-    public void deleteAppointmentById(Long id) {
+    public void deleteById(Long id) {
         appointmentRepository.deleteById(id);
     }
 
-    public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
-    }
 }

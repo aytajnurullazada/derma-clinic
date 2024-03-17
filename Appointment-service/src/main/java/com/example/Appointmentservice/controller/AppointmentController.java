@@ -77,7 +77,7 @@ public class AppointmentController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
         appointmentServices.deleteById(id);
         return ResponseEntity.noContent().build();
