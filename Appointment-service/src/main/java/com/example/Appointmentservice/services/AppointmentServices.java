@@ -14,7 +14,7 @@ public class AppointmentServices {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public ResponseEntity<AppointmentModel> findById(String id) {
+    public ResponseEntity<AppointmentModel> findById(Long id) {
         Optional<AppointmentModel> appointmentOptional = appointmentRepository.findById(id);
         return appointmentOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -24,12 +24,12 @@ public class AppointmentServices {
     }
 
     public ResponseEntity<AppointmentModel> createAppointment(AppointmentModel appointment) {
-        @SuppressWarnings("null")
+       
         AppointmentModel appointmentModel = appointmentRepository.save(appointment);
         return ResponseEntity.ok(appointmentModel);
     }
 
-    public ResponseEntity<AppointmentModel> updateAppointment(String id, AppointmentModel appointmentDetails) {
+    public ResponseEntity<AppointmentModel> updateAppointment(Long id, AppointmentModel appointmentDetails) {
         Optional<AppointmentModel> appointmentOptional = appointmentRepository.findById(id);
         if (appointmentOptional.isPresent()) {
             AppointmentModel appointment = appointmentOptional.get();
@@ -44,11 +44,11 @@ public class AppointmentServices {
         }
     }
 
-    public void deleteAppointmentById(String id) {
+    public void deleteAppointmentById(Long id) {
         appointmentRepository.deleteById(id);
     }
 
-    public void deleteById(String id) {
+    public void deleteById(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }

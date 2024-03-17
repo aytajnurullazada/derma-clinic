@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,11 +18,10 @@ import lombok.NoArgsConstructor;
 
 
 public class AppointmentDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private String id;
-    private int AppointmentId;
-    private int PatientId;
+    private String AppointmentId;
+    private String PatientId;
     private LocalDate Date;
     private String memberType;
     

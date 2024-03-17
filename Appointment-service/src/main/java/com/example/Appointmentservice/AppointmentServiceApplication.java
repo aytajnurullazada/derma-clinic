@@ -17,7 +17,7 @@ public class AppointmentServiceApplication {
 			return  WebClient.builder();
 		}
 	public static void main(String[] args) {
-		DatabaseInitializer.initialize("appointmentserviceDB");
+		//DatabaseInitializer.initialize("appointmentserviceDB");
 		SpringApplication.run(AppointmentServiceApplication.class, args);
 	}
 

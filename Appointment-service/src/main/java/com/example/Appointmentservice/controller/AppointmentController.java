@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Appointmentservice.dto.AppointmentDto;
 import com.example.Appointmentservice.model.AppointmentModel;
 import com.example.Appointmentservice.repository.AppointmentRepository;
 import com.example.Appointmentservice.services.AppointmentServices;
@@ -37,7 +38,7 @@ public class AppointmentController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<AppointmentModel> findById(@PathVariable String id) {
+    public ResponseEntity<AppointmentModel> findById(@PathVariable Long id) {
         java.util.Optional<AppointmentModel> patientOptional = appointmentRepository.findById(id);
         if (patientOptional.isPresent()) {
             AppointmentModel patient = patientOptional.get();
@@ -54,24 +55,26 @@ public class AppointmentController {
                                         .collect(Collectors.toList());
         return appointmentList;
     }
-    // @PostMapping("/add")
-    // public ResponseEntity<AppointmentModel> saveAppointment(@RequestBody AppointmentModel appointmentModel) {
-    //     try {
-    //         // Set the current date if not provided in the request
-    //         if (appointmentModel.getDate() == null) {
-    //             appointmentModel.setDate(LocalDate.now());
-    //         }
-            
-    //         // Save the appointment
-    //         AppointmentModel savedAppointment = appointmentRepository.save(appointmentModel);
-    //         return ResponseEntity.status(HttpStatus.SC_CREATED).body(savedAppointment);
-    //     } catch (Exception e) {
-    //         // Handle any exceptions and return an appropriate response
-    //         return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).build();
-    //     }
-    // }
+    @PostMapping("/add")
+    public ResponseEntity<AppointmentModel> saveAppointment(@RequestBody AppointmentModel appointmentModel) {
+        try {
+            // Set the current date if not provided in the request
+            // if (appointmentModel.getDate() == null) {
+            //     appointmentModel.setDate(LocalDate.now());
+            // }
+            System.out.println(appointmentModel);
+
+            // Save the appointment
+            AppointmentModel savedAppointment = appointmentRepository.save(appointmentModel);
+            return ResponseEntity.status(HttpStatus.SC_CREATED).body(savedAppointment);
+        } catch (Exception e) {
+            // Handle any exceptions and return an appropriate response
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).build();
+        }
+    }
+  
     @PutMapping("/update/{id}")
-    public ResponseEntity<AppointmentModel> updateAppointment(@PathVariable String id, @RequestBody AppointmentModel appointmentDetails) {
+    public ResponseEntity<AppointmentModel> updateAppointment(@PathVariable Long id, @RequestBody AppointmentModel appointmentDetails) {
         Optional<AppointmentModel> appointmentOptional = appointmentRepository.findById(id);
         if (appointmentOptional.isPresent()) {
             AppointmentModel appointment = appointmentOptional.get();
@@ -87,7 +90,7 @@ public class AppointmentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAppointment(@PathVariable String id) {
+    public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
         appointmentServices.deleteById(id);
         return ResponseEntity.noContent().build();
     }
