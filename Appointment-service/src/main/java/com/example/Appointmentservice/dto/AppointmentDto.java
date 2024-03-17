@@ -2,33 +2,24 @@ package com.example.Appointmentservice.dto;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
-
-
 public class AppointmentDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-    private int AppointmentId;
-    private int PatientId;
-    private LocalDate Date;
+    private int id; // Type changed from String to int, JPA annotations removed
+    private int appointmentId;
+    private int patientId;
+    private LocalDate date;
     private String memberType;
-    
 
-
-    public AppointmentDto(String id){
-        this.id =id;
-        }
+    // If you still need a constructor for setting id, adjust its type
+    public AppointmentDto(int id){
+        this.id = id;
+    }
 }

@@ -2,9 +2,11 @@ package com.example.Appointmentservice.services;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import com.example.Appointmentservice.model.AppointmentModel;
 import com.example.Appointmentservice.repository.AppointmentRepository;
 
@@ -14,7 +16,7 @@ public class AppointmentServices {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public ResponseEntity<AppointmentModel> findById(String id) {
+    public ResponseEntity<AppointmentModel> findById(int id) {
         Optional<AppointmentModel> appointmentOptional = appointmentRepository.findById(id);
         return appointmentOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -28,7 +30,7 @@ public class AppointmentServices {
         return ResponseEntity.ok(appointmentModel);
     }
 
-    public ResponseEntity<AppointmentModel> updateAppointment(String id, AppointmentModel appointmentDetails) {
+    public ResponseEntity<AppointmentModel> updateAppointment(int id, AppointmentModel appointmentDetails) {
         Optional<AppointmentModel> appointmentOptional = appointmentRepository.findById(id);
         if (appointmentOptional.isPresent()) {
             AppointmentModel appointment = appointmentOptional.get();
@@ -43,7 +45,7 @@ public class AppointmentServices {
         }
     }
 
-    public ResponseEntity<Void> deleteAppointment(String id) {
+    public ResponseEntity<Void> deleteAppointment(int id) {
         Optional<AppointmentModel> appointmentOptional = appointmentRepository.findById(id);
         if (appointmentOptional.isPresent()) {
             appointmentRepository.deleteById(id);

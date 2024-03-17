@@ -11,22 +11,24 @@ import com.example.Appointmentservice.repository.AppointmentRepository;
 
 @Configuration
 public class DataInitializer {
-        @Bean
+    @Bean
     public CommandLineRunner loadAppointmentData(AppointmentRepository appointmentRepository) {
         return args -> {
-            AppointmentModel appointment1 = new AppointmentModel("1");
-            appointment1.setAppointmentId(1001);
-            appointment1.setPatientId(1);
-            appointment1.setDate(LocalDate.of(2024, 3, 16));
-            appointment1.setMemberType("Premium");
+            AppointmentModel appointment1 = AppointmentModel.builder()
+                    .appointmentId(1001)
+                    .patientId(1)
+                    .date(LocalDate.of(2024, 3, 16))
+                    .memberType("Premium")
+                    .build();
 
             appointmentRepository.save(appointment1);
 
-            AppointmentModel appointment2 = new AppointmentModel("2");
-            appointment2.setAppointmentId(1002);
-            appointment2.setPatientId(2);
-            appointment2.setDate(LocalDate.of(2024, 3, 17));
-            appointment2.setMemberType("Regular");
+            AppointmentModel appointment2 = AppointmentModel.builder()
+                    .appointmentId(1002)
+                    .patientId(2)
+                    .date(LocalDate.of(2024, 3, 17))
+                    .memberType("Regular")
+                    .build();
 
             appointmentRepository.save(appointment2);
         };

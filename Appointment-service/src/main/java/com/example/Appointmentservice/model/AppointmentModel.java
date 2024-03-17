@@ -11,28 +11,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
-@Table(name="AppointmentTable")
-@Builder
+@Table(name = "AppointmentTable")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class AppointmentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-    private int AppointmentId;
-    private int PatientId;
-    private LocalDate Date;
+    private int id; // Changed from String to int
+    private int appointmentId;
+    private int patientId;
+    private LocalDate date;
     private String memberType;
-    
 
-
-    public AppointmentModel(String id){
-        this.id =id;
-        }
 }
-
-    
-
