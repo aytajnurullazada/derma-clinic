@@ -24,6 +24,7 @@ public class AppointmentServices {
     }
 
     public ResponseEntity<AppointmentModel> createAppointment(AppointmentModel appointment) {
+        @SuppressWarnings("null")
         AppointmentModel appointmentModel = appointmentRepository.save(appointment);
         return ResponseEntity.ok(appointmentModel);
     }
@@ -43,13 +44,12 @@ public class AppointmentServices {
         }
     }
 
-    public ResponseEntity<Void> deleteAppointment(String id) {
-        Optional<AppointmentModel> appointmentOptional = appointmentRepository.findById(id);
-        if (appointmentOptional.isPresent()) {
-            appointmentRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public void deleteAppointmentById(String id) {
+        appointmentRepository.deleteById(id);
+    }
+
+    public void deleteById(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }
 }
