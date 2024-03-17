@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @Table(name="AppointmentTable")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Data
 
 public class AppointmentModel {
     @Id
@@ -25,72 +27,10 @@ public class AppointmentModel {
     private String memberType;
     
 
-
-    public void setAppointmentId(int appointmentId) {
-        AppointmentId = appointmentId;
-    }
-
-
-
-    public void setPatientId(int patientId) {
-        PatientId = patientId;
-    }
-
-
-
-    public void setDate(LocalDate date) {
-        Date = date;
-    }
-
-
-
-    public void setMemberType(String memberType) {
-        this.memberType = memberType;
-    }
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-
-
-    public int getAppointmentId() {
-        return AppointmentId;
-    }
-
-
-
-    public int getPatientId() {
-        return PatientId;
-    }
-
-
-
-    public LocalDate getDate() {
-        return Date;
-    }
-
-
-
-    public String getMemberType() {
-        return memberType;
-    }
-
-
-
     public AppointmentModel(Long id){
         this.id =id;
         }
 
-
-
-    @Override
-    public String toString() {
-        return "AppointmentModel [id=" + id + ", AppointmentId=" + AppointmentId + ", PatientId=" + PatientId
-                + ", Date=" + Date + ", memberType=" + memberType + "]";
-    }
 }
 
     

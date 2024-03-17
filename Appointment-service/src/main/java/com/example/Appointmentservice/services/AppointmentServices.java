@@ -2,6 +2,8 @@ package com.example.Appointmentservice.services;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.example.Appointmentservice.dto.AppointmentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,14 @@ public class AppointmentServices {
         return (List<AppointmentModel>) appointmentRepository.findAll();
     }
 
-    public ResponseEntity<AppointmentModel> createAppointment(AppointmentModel appointment) {
-       
-        AppointmentModel appointmentModel = appointmentRepository.save(appointment);
-        return ResponseEntity.ok(appointmentModel);
+    public AppointmentModel createAppointment(AppointmentDto appointment) {
+        AppointmentModel model = AppointmentModel.builder()
+                .AppointmentId(Integer.parseInt(appointment.getAppointmentId()))
+                .Date(appointment.getDate())
+                .PatientId(Integer.parseInt(appointment.getPatientId()))
+                .memberType(appointment.getMemberType())
+                .build();
+        return appointmentRepository.save(model);
     }
 
     public ResponseEntity<AppointmentModel> updateAppointment(Long id, AppointmentModel appointmentDetails) {

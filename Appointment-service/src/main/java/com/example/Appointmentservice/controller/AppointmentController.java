@@ -1,28 +1,19 @@
 package com.example.Appointmentservice.controller;
 
+import com.example.Appointmentservice.dto.AppointmentDto;
+import com.example.Appointmentservice.model.AppointmentModel;
+import com.example.Appointmentservice.repository.AppointmentRepository;
+import com.example.Appointmentservice.services.AppointmentServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import org.apache.hc.core5.http.HttpStatus;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.Appointmentservice.dto.AppointmentDto;
-import com.example.Appointmentservice.model.AppointmentModel;
-import com.example.Appointmentservice.repository.AppointmentRepository;
-import com.example.Appointmentservice.services.AppointmentServices;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 
 @RestController
@@ -56,20 +47,17 @@ public class AppointmentController {
         return appointmentList;
     }
     @PostMapping("/add")
-    public ResponseEntity<AppointmentModel> saveAppointment(@RequestBody AppointmentModel appointmentModel) {
+    public ResponseEntity<AppointmentModel> saveAppointment(@RequestBody AppointmentDto appointmentDto) {
         try {
-            // Set the current date if not provided in the request
-            // if (appointmentModel.getDate() == null) {
-            //     appointmentModel.setDate(LocalDate.now());
-            // }
-            System.out.println(appointmentModel);
+            System.out.println("app_model : " + appointmentDto);
 
             // Save the appointment
-            AppointmentModel savedAppointment = appointmentRepository.save(appointmentModel);
-            return ResponseEntity.status(HttpStatus.SC_CREATED).body(savedAppointment);
+            AppointmentModel savedAppointment = appointmentServices.createAppointment(appointmentDto);
+            System.out.println("saved_model : " + savedAppointment);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedAppointment);
         } catch (Exception e) {
             // Handle any exceptions and return an appropriate response
-            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.internalServerError().build();
         }
     }
   
