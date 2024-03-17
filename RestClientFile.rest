@@ -1,4 +1,7 @@
 
+#Swagger 
+http://localhost:8082/swagger-ui/4.15.5/index.html
+
 ### Get All Patients
 GET http://localhost:8082/patient/all 
 
@@ -36,4 +39,40 @@ content-type: application/json
 ### Delete a product
 DELETE http://localhost:8082/patient/delete/4
 
+# This for Appointment service 
+#Swagger
+http://localhost:8081/swagger-ui/4.15.5/index.html
+### Get all appoinment 
+
+GET GET http://localhost:8081/appointment/all
+
+###Get single appintment 
+
+GET GET http://localhost:8081/appointment/1
+
+###Post appintment 
+http://localhost:8081/appointment/add HTTP/1.1
+content-type: application/json
+{
+  "id": 999,
+  "memberType": "Basic",
+  "appointmentId": 112,
+  "patientId": 123,
+  "date": "2024-03-17"
+}
+
+###Put appointment 
+PUT   http://localhost:8081/update/2 HTTP/1.1
+content-type: application/json
+{
+  "id": 2,
+  "memberType": "Basic",
+  "appointmentId": 112,
+  "patientId": 123,
+  "date": "2024-03-17"
+}
+
+###Delete appointment
+
+DELETE http://localhost:8081/delete/2
 
